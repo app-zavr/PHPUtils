@@ -20,8 +20,10 @@ define('ERROR_CODE', 'errorCode');
 
 function setResponse($data)
 {
-    header('Content-type: text/json');
-    header('Content-type: application/json');
+    if(! @PHPUNIT_RUNNING === 1 ) {
+        header('Content-type: text/json');
+        header('Content-type: application/json');
+    }
 
     print_r(json_encode($data, TRUE));
 
