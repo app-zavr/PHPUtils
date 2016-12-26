@@ -41,9 +41,31 @@ class NumberFormatterTest extends \PHPUnit_Framework_TestCase
      * @param $precision
      * @param $expected
      */
-    public function testFormatNumber($locale, $number, $precision , $expected)
+    public function testFormatNumber($locale, $number, $precision, $expected)
     {
         $this->assertEquals($expected, formatNumbers($number, SYSTEM_NUMBERS, $precision, $locale));
+    }
+
+    /**
+     * @dataProvider declineNumberNonFormattedProvider
+     * @param $number
+     * @param $titles
+     * @param $expected
+     */
+    public function testDeclineNumberNonFormatted($number, $titles, $expected)
+    {
+        $this->assertEquals($expected, declineNumber($number, $titles, false));
+    }
+
+    /**
+     * @dataProvider declineNumberFormattedProvider
+     * @param $number
+     * @param $titles
+     * @param $expected
+     */
+    public function testDeclineNumberFormatted($number, $titles, $expected)
+    {
+        $this->assertEquals($expected, declineNumber($number, $titles));
     }
 
     public function formatNumberSystemProvider()
@@ -121,7 +143,7 @@ class NumberFormatterTest extends \PHPUnit_Framework_TestCase
             [LOCALE_RU, 1234567890000000, 2, '1.23 трлд.'],
             [LOCALE_RU, 12345678900000000, 2, '12.35 трлд.'],
             [LOCALE_RU, 123456789000000000, 2, '123.46 трлд.'],
-            
+
             // ------------------------------
             [LOCALE_EN, 1, 0, '1'],
             [LOCALE_EN, 12, 0, '12'],
@@ -162,5 +184,42 @@ class NumberFormatterTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    public function declineNumberNonFormattedProvider()
+    {
+        $titles = ['стул', 'стула', 'стульев'];
+        return [
+            [0, $titles, '0 стульев'],
+            [1, $titles, '1 стул'],
+            [2, $titles, '2 стула'],
+            [4, $titles, '4 стула'],
+            [5, $titles, '5 стульев'],
+            [9, $titles, '9 стульев'],
+            [10, $titles, '10 стульев'],
+            [11, $titles, '11 стульев'],
+            [55, $titles, '55 стульев'],
+            [99, $titles, '99 стульев'],
+            [100, $titles, '100 стульев'],
+            [10000, $titles, '10000 стульев'],
+        ];
+    }
+
+    public function declineNumberFormattedProvider()
+    {
+        $titles = ['стул', 'стула', 'стульев'];
+        return [
+            [0, $titles, '0 стульев'],
+            [1, $titles, '1 стул'],
+            [2, $titles, '2 стула'],
+            [4, $titles, '4 стула'],
+            [5, $titles, '5 стульев'],
+            [9, $titles, '9 стульев'],
+            [10, $titles, '10 стульев'],
+            [11, $titles, '11 стульев'],
+            [55, $titles, '55 стульев'],
+            [99, $titles, '99 стульев'],
+            [100, $titles, '100 стульев'],
+            [10000, $titles, '10 тыс. стульев'],
+        ];
+    }
 
 }

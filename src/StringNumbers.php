@@ -58,10 +58,17 @@ function formatNumbers($number, $type = SYSTEM_INFORMATION, $precision = 2, $loc
  *
  * @param int $number Число которое нужно просклонять
  * @param array $titles Массив слов для склонения
+ * @param bool $isFormat - флаг форматирования числа
+ * @param string $locale - локаль форматирования
  * @return string
- **/
-function declOfNum($number, $titles)
+ */
+function declineNumber($number, $titles, $isFormat = true, $locale = LOCALE_RU)
 {
     $cases = array(2, 0, 1, 1, 1, 2);
-    return formatNumbers($number, SYSTEM_NUMBERS) . " " . $titles[($number % 100 > 4 && $number % 100 < 20) ? 2 : $cases[min($number % 10, 5)]];
+    if ($isFormat)
+        $ret = formatNumbers($number, SYSTEM_NUMBERS, 2, $locale);
+    else
+        $ret = $number;
+
+        return $ret . " " . $titles[($number % 100 > 4 && $number % 100 < 20) ? 2 : $cases[min($number % 10, 5)]];
 }
