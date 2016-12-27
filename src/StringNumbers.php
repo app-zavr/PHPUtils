@@ -8,6 +8,8 @@
 
 namespace Appzavr\PHPUtils;
 
+require_once 'Lang.php';
+
 define('SYSTEM_INFORMATION', 0);
 define('SYSTEM_NUMBERS', 1);
 
