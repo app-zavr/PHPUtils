@@ -12,7 +12,10 @@
   "autoload": {
     "psr-4": {
       "Appzavr\\PHPUtils\\": "src/"
-    }
+    },
+    "files": [
+      "src/Lang.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
