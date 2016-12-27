@@ -14,7 +14,10 @@
       "Appzavr\\PHPUtils\\": "src/"
     },
     "files": [
-      "src/Lang.php"
+      "src/Lang.php",
+      "src/Random.php",
+      "src/Response.php",
+      "src/StringNumbers.php"
     ]
   },
   "autoload-dev": {

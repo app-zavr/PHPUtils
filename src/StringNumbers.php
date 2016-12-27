@@ -11,10 +11,6 @@ namespace Appzavr\PHPUtils;
 define('SYSTEM_INFORMATION', 0);
 define('SYSTEM_NUMBERS', 1);
 
-define('LOCALE_RU', 'ru');
-define('LOCALE_EN', 'en');
-define('LOCALE_UK', 'uk');
-
 /**
  * Function formatting numbers to shorter version
  *
