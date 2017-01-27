@@ -27,7 +27,8 @@ function setResponse($data)
 
     print_r(json_encode($data, TRUE));
 
-    if(! @PHPUNIT_RUNNING === 1 ) exit;
+//    if(! @PHPUNIT_RUNNING === 1 )
+        exit;
 }
 
 function setOkResponse($params)
