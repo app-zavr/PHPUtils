@@ -18,6 +18,9 @@ define('MESSAGE_ERROR', 'message');
 define('MESSAGE_OK', 'message');
 define('ERROR_CODE', 'errorCode');
 
+define('ERROR_REQUEST_NOT_ENOUGH_PARAMS', -100);
+define('ERROR_REQUEST_NOT_NULL_VALUE', -101);
+
 function setResponse($data)
 {
     if(! @PHPUNIT_RUNNING === 1 ) {
@@ -64,4 +67,26 @@ function setErrorMessage($errorCode, $message = NULL)
         $retVal[ERROR][MESSAGE_ERROR] = $message;
 
     setResponse($retVal);
+}
+
+// TODO Прроверить на SQL инъекции и экранирование параметров
+function getValueForParameter($value, $isString = true, $isNull = true, $checkKey = true)
+{
+    if ($checkKey) {
+        if (!isset($_GET[$value])) {
+            setErrorMessage(ERROR_REQUEST_NOT_ENOUGH_PARAMS);
+        }
+    }
+
+    @$valueGet = $_GET[$value];
+
+    if (empty($valueGet) && ($valueGet != 0)) {
+        if (!$isNull)
+            setErrorMessage(ERROR_REQUEST_NOT_NULL_VALUE);
+    } else {
+        if (!empty($valueGet) || ($valueGet == 0))
+            return $valueGet;
+    }
+
+    return $isString ? '' : 0;
 }
