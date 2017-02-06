@@ -17,8 +17,7 @@
       "src/Lang.php",
       "src/Random.php",
       "src/Response.php",
-      "src/StringNumbers.php",
-      "src/SQL.php"
+      "src/StringNumbers.php"
     ]
   },
   "autoload-dev": {
