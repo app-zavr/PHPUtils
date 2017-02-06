@@ -6,6 +6,8 @@
  * Time: 17:41
  */
 
+namespace Appzavr\PHPUtils;
+
 require_once 'Response.php';
 
 use Appzavr\PHPUtils;
