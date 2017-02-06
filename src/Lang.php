@@ -6,17 +6,21 @@
  * Time: 23:43
  */
 
+namespace Appzavr\PHPUtils;
 
-define('LOCALE_RU', 'ru');
-define('LOCALE_EN', 'en');
-define('LOCALE_UK', 'uk');
-
-function getBrowserLanguage($default = 'en', $languages = ['ru', 'en'])
+class Lang
 {
-    $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    const LOCALE_RU = 'ru';
+    const LOCALE_EN = 'en';
+    const LOCALE_UK = 'uk';
 
-    if (in_array($lang, $languages))
-        return $lang;
-    else
-        return $default;
+    static function getBrowserLanguage($default = 'en', $languages = ['ru', 'en'])
+    {
+        $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+
+        if (in_array($lang, $languages))
+            return $lang;
+        else
+            return $default;
+    }
 }

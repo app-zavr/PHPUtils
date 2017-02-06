@@ -8,18 +8,15 @@
 
 namespace Appzavr\PHPUtils;
 
-define('ERROR_SQL_EXEC', -200);
-
-class SQL
-{
-    const ERROR_SQL_CONNECT = 'SQL error while connecting';
-    const ERROR_SQL_EXEC = 'SQL error execution';
+class SQL {
+    const ERROR_SQL_CONNECT = -201;     // SQL error while connecting
+    const ERROR_SQL_EXEC = -200;        // SQL error execution
 
     private static $link;
 
     public static function connect($credentials)
     {
-        self::$link = mysqli_connect($credentials['host'], $credentials['user'], $credentials['password']) or setErrorMessage(self::ERROR_SQL_CONNECT, [
+        self::$link = mysqli_connect($credentials['host'], $credentials['user'], $credentials['password']) or Response::error(self::ERROR_SQL_CONNECT, [
             'mysql_error' => mysqli_error(self::$link),
             'trace' => __METHOD__ . "::" . __LINE__
         ]);
@@ -38,13 +35,13 @@ class SQL
         if ($isSingle) {
             $row = $sql_visible_fields;
 
-            $result = mysqli_query(self::$link, $query) or setErrorMessage(self::ERROR_SQL_EXEC,
+            $result = mysqli_query(self::$link, $query) or Response::error(self::ERROR_SQL_EXEC,
                 [
                     mysqli_error(self::$link),
                     $query
                 ]);
             if (!$result)
-                setErrorMessage(self::ERROR_SQL_EXEC,
+                Response::error(self::ERROR_SQL_EXEC,
                     [
                         mysqli_error(self::$link),
                         $query
@@ -61,13 +58,13 @@ class SQL
             return $retParse;
         } else {
 
-            $result = mysqli_query(self::$link, $query) or setErrorMessage(self::ERROR_SQL_EXEC,
+            $result = mysqli_query(self::$link, $query) or Response::error(self::ERROR_SQL_EXEC,
                 [
                     mysqli_error(self::$link),
                     $query
                 ]);
             if (!$result)
-                setErrorMessage(self::ERROR_SQL_EXEC,
+                Response::error(self::ERROR_SQL_EXEC,
                     [
                         mysqli_error(self::$link),
                         $query
@@ -109,7 +106,7 @@ class SQL
             $row = $sql_visible_fields;
 
             if (!$result)
-                setErrorMessage(self::ERROR_SQL_EXEC,
+                Response::error(self::ERROR_SQL_EXEC,
                     [
                         mysqli_error(self::$link),
                         $query
@@ -126,7 +123,7 @@ class SQL
             return $retParse;
         } else {
             if (!$result)
-                setErrorMessage(self::ERROR_SQL_EXEC,
+                Response::error(self::ERROR_SQL_EXEC,
                     [
                         mysqli_error(self::$link),
                         $query
@@ -154,17 +151,16 @@ class SQL
         }
     }
 
-    static function executeSQL($credentials, $query, $showError = TRUE, $exception = false)
+    static function executeSQL($credentials, $query, $showError = TRUE)
     {
         self::connect($credentials);
 
         if ($showError)
-            mysqli_query(self::$link,$query) or setErrorMessage(ERROR_SQL_EXEC,
+            mysqli_query(self::$link,$query) or Response::error(self::ERROR_SQL_EXEC,
                 [
                     mysqli_error(self::$link),
                     $query
-                ]
-                , $exception);
+                ]);
         else
             mysqli_query(self::$link, $query);
 
@@ -188,7 +184,7 @@ class SQL
         self::connect($credentials);
 
         if ($showError) {
-            mysqli_multi_query(self::$link, $query) or setErrorMessage(ERROR_SQL_EXEC,
+            mysqli_multi_query(self::$link, $query) or Response::error(self::ERROR_SQL_EXEC,
                 [
                     mysqli_error(self::$link),
                     $query
