@@ -14,7 +14,7 @@ class Request {
     {
         if ($checkKey) {
             if (!isset($_GET[$value])) {
-                Response::error(ERROR_REQUEST_NOT_ENOUGH_PARAMS);
+                Response::error(ERROR_REQUEST_NOT_ENOUGH_PARAMS, [$value]);
             }
         }
 
