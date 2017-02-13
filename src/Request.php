@@ -18,7 +18,7 @@ class Request {
             }
         }
 
-        @$valueGet = $_GET[$value];
+        @$valueGet = addslashes($_GET[$value]);
 
         if (empty($valueGet) && ($valueGet != 0)) {
             if (!$isNull)
