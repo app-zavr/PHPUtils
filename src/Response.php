@@ -25,14 +25,10 @@ class Response
 {
     function response($data)
     {
-        if (!@PHPUNIT_RUNNING === 1) {
-            header('Content-type: text/json');
-            header('Content-type: application/json');
-        }
+        header('Content-type: text/json');
+        header('Content-type: application/json');
 
         print_r(json_encode($data, TRUE));
-
-//    if(! @PHPUNIT_RUNNING === 1 )
         exit;
     }
 
