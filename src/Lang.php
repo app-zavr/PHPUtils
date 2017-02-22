@@ -29,10 +29,10 @@ class Lang
         $locale = Request::getValueForParameter('locale');
         $locale = substr($locale, 3, 2);
 
-        if (strpos(strtolower($locale), 'ru') !== false || strpos(strtolower($locale), 'uk') !== false)
-            $locale = 'ru';
+        if (strpos(strtolower($locale), self::LOCALE_RU) !== false || strpos(strtolower($locale), self::LOCALE_UK) !== false)
+            $locale = self::LOCALE_RU;
         else
-            $locale = 'en';
+            $locale = self::LOCALE_EN;
 
         return strtolower($locale);
     }
