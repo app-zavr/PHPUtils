@@ -27,7 +27,6 @@ class Lang
     static function getLocaleSuffix() {
 
         $locale = Request::getValueForParameter('locale');
-        $locale = substr($locale, 3, 2);
 
         if (strpos(strtolower($locale), self::LOCALE_RU) !== false || strpos(strtolower($locale), self::LOCALE_UK) !== false)
             $locale = self::LOCALE_RU;
