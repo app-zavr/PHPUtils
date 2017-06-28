@@ -59,14 +59,20 @@ class Numbers
      * @param string $locale - локаль форматирования
      * @return string
      */
-    static function declineNumber($number, $titles, $isFormat = true, $locale = Lang::LOCALE_RU)
+    static function declineNumber($number, $titles, $showNumber = true, $isFormat = true, $locale = Lang::LOCALE_RU)
     {
         $cases = array(2, 0, 1, 1, 1, 2);
-        if ($isFormat)
-            $ret = Numbers::formatNumbers($number, Numbers::SYSTEM_NUMBERS, 2, $locale);
-        else
-            $ret = $number;
+        if ($showNumber) {
+            if ($isFormat)
+                $ret = Numbers::formatNumbers($number, Numbers::SYSTEM_NUMBERS, 2, $locale);
+            else
+                $ret = $number;
 
-        return $ret . " " . $titles[($number % 100 > 4 && $number % 100 < 20) ? 2 : $cases[min($number % 10, 5)]];
+            $ret .= ' ';
+        }
+        else
+            $ret = '';
+
+        return $ret . $titles[($number % 100 > 4 && $number % 100 < 20) ? 2 : $cases[min($number % 10, 5)]];
     }
 }

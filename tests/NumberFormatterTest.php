@@ -8,7 +8,7 @@
 
 namespace Appzavr\PHPUtils;
 
-require_once __DIR__ . '/../src/StringNumbers.php';
+require_once __DIR__ . '/../src/Numbers.php';
 
 class NumberFormatterTest extends \PHPUnit_Framework_TestCase
 {
