@@ -30,4 +30,25 @@ class Request {
 
         return $isString ? '' : 0;
     }
+
+    static function postValueForParameter($value, $isString = true, $isNull = true, $checkKey = true)
+    {
+        if ($checkKey) {
+            if (!isset($_POST[$value])) {
+                Response::error(ERROR_REQUEST_NOT_ENOUGH_PARAMS, [$value]);
+            }
+        }
+
+        @$valuePost = addslashes($_POST[$value]);
+
+        if (empty($valuePost) && ($valuePost != 0)) {
+            if (!$isNull)
+                Response::error(ERROR_REQUEST_NOT_NULL_VALUE);
+        } else {
+            if (!empty($valuePost) || ($valuePost == 0))
+                return $valuePost;
+        }
+
+        return $isString ? '' : 0;
+    }
 }
